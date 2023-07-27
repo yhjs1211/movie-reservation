@@ -18,7 +18,7 @@ export default class UserController{
                 message:"유저 생성 완료"
             })
         }else{
-            res.status(200).json({
+            res.status(400).json({
                 result:result.data,
                 message:"유저 생성 실패"
             })
@@ -26,7 +26,18 @@ export default class UserController{
     };
 
     login = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
-        this.userService
+        const result = await this.userService.login(req.body);
+        if(result){
+            res.cookie('Authorization',result,{path:'/',httpOnly:true});
+            res.status(200).json({
+                token:result,
+                message:"로그인 성공"
+            })
+        }else{
+            res.status(400).json({
+                message:"로그인 실패"
+            })
+        }
     }
 
     getProfile = (req :Request, res : Response, next : NextFunction) : void => {

@@ -2,6 +2,7 @@ import { container, singleton } from "tsyringe";
 import UserRepository from "../repository/user.repository";
 import bcrypt from 'bcrypt';
 import { config } from "../../config";
+import auth from "../../middleware/auth";
 
 const userRepository = container.resolve(UserRepository);
 
@@ -27,15 +28,20 @@ export default class UserService{
         return this.userRepository.createUser( isAdmin, name, nickname, mobile, password );
     }
 
-    public login ( data : LoginInfo){
+    public async login ( data : LoginInfo){
         const { nickname , password } = data;
-        this.userRepository.findByNickname(nickname).then(user=>{
-            if(user){
-                
-            }else{
+        const user = await this.userRepository.findByNickname(nickname);
+        const comparePassword = user?.password;
 
+        if(comparePassword){
+            const result = bcrypt.compareSync(password,comparePassword);
+            if(result){
+                const token = auth.getToken(user.id, user.isAdmin);
+                return token;
+            }else{
+                return null;
             }
-        });
+        }
     }
 
     public findById ( userId : string ){

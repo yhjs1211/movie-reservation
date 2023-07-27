@@ -4,14 +4,14 @@ import { config } from '../config';
 import User from "../database/model/user.model";
 
 type Token = {
-    userId : string,
+    userId : number,
     isAdmin : boolean
 };
 
 class Auth{
     private jwt = jwt;
 
-    public getToken(userId:string, isAdmin:boolean) : string {
+    public getToken(userId:number, isAdmin:boolean) : string {
         
         const payload : Token = {
             userId,
