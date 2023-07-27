@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { Jwt, JwtPayload, VerifyErrors } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { config } from '../config';
-import User from "../database/model/user.model";
 
 type Token = {
     userId : number,
@@ -26,6 +25,13 @@ class Auth{
     
     public verifyUser =  async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
         const authorization = req.cookies.Authorization;
+        
+        if(!authorization){
+            res.status(400).json({
+                message : "로그인 먼저 해주세요."
+            });
+            return;
+        }
 
         const token : string = authorization?.split(' ')[1];
 

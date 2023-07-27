@@ -18,7 +18,7 @@ router.get('/me',auth.verifyUser,usercontroller.getProfile);
 
 router.post('/login',usercontroller.login);
 
-router.get('/logout');
+router.get('/logout',usercontroller.logout);
 
 router.route('/')
 .post(usercontroller.signup)

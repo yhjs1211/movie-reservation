@@ -38,6 +38,13 @@ export default class UserController{
                 message:"로그인 실패"
             })
         }
+    };
+
+    logout = (req :Request, res : Response, next : NextFunction) : void => {
+        res.clearCookie('Authorization');
+        res.status(200).json({
+            message : "로그아웃 되었습니다."
+        });
     }
 
     getProfile = (req :Request, res : Response, next : NextFunction) : void => {
