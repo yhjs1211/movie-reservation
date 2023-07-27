@@ -13,11 +13,13 @@ class DBConnector{
         models : [User],
         logging : false
     })
+
     async getTransaction() :Promise<Transaction>{
         return await this.sq.transaction();
     }
 
     async initDB(){
+        
         await this.sq.sync().then(()=>{
             console.log('🌈 Database is connected 🌈');
         });

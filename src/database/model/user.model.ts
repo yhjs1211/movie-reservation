@@ -8,6 +8,7 @@ interface UserAttributes{
     nickname : string;
     mobile : string;
     point? : number;
+    password : string;
 };
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {};
@@ -28,6 +29,10 @@ export default class User extends Model<UserAttributes,UserCreationAttributes>{
     @AllowNull(false)
     @Column
     name! : string;
+
+    @AllowNull(false)
+    @Column
+    password! : string;
 
     @AllowNull(false)
     @Unique

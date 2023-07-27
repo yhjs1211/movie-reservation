@@ -5,7 +5,6 @@ import {config} from './config';
 import dbConnector from "./database/db";
 import router from "./routes";
 
-
 export default class ExpressApp{
     private app = express();
     private db = dbConnector;

@@ -7,12 +7,12 @@ const router = Router();
 
 const defaultRouter = [
     {
-        path:'/users',
-        router:userRouter
+        path : '/users',
+        router : userRouter
     },
     {
-        path:'/shows',
-        router:showRouter
+        path : '/shows',
+        router : showRouter
     }
 ];
 

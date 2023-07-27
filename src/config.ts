@@ -26,4 +26,7 @@ function getValue(key : string, defaultValue?:string):string {
     server: {
       port: getValue("PORT", "8080"),
     },
+    bcrypt: {
+      salt: getValue("BCRYPT_SALT","10")
+    }
   };

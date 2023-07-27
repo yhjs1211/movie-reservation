@@ -13,19 +13,42 @@ export default class UserRepository{
     private userRepository = dbConnector.sq.getRepository(User);
     private transaction = dbConnector.getTransaction();
 
-    async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string) : Promise<ResponseData>{
+    async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string, password : string) : Promise<ResponseData>{
         let user = null;
+
         try {
-            await this.userRepository.create({isAdmin,name,nickname,mobile});
+            await this.userRepository.create({isAdmin, name, nickname, mobile, password});
             user = await this.userRepository.findOne({
                 where:{
                     [Op.and]:{ mobile, nickname }
                 }
             });
+            return {isSuccessful : true, data:user};
         } catch (e) {
             console.error(e);
             return {isSuccessful : false, data:user};
         }
-        return {isSuccessful : true, data:user};   
+    }
+
+    async findById(userId : string) : Promise<ResponseData>{
+        let user = null;
+        try {
+            user = await this.userRepository.findByPk(userId);    
+            return {isSuccessful : true, data:user};
+        } catch (e) {
+            console.error(e);
+            return {isSuccessful : false, data:user};
+        }
+    }
+
+    async findByNickname ( nickname : string ) : Promise<User | null>{
+        let user = null;
+        try {
+            user = await this.userRepository.findOne({where:{nickname}});
+            return user;
+        } catch (e) {
+            console.error(e);
+            return user;
+        }
     }
 }
