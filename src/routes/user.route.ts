@@ -4,6 +4,9 @@ import { container } from "tsyringe";
 import auth from "../middleware/auth";
 import validator from '../middleware/validate';
 
+const usercontroller = container.resolve(UserController);
+const router = Router();
+
 /*
     GET '/users/me' 개인정보 조회
     POST '/users' 회원가입
@@ -12,8 +15,6 @@ import validator from '../middleware/validate';
     POST '/users/login' 로그인
     GET '/users/logout' 로그아웃
 */
-const usercontroller = container.resolve(UserController);
-const router = Router();
 
 router.get('/me',auth.verifyUser,usercontroller.getProfile);
 
@@ -22,7 +23,7 @@ router.post('/login',validator.login,usercontroller.login);
 router.get('/logout',usercontroller.logout);
 
 router.route('/')
-.post(usercontroller.signup)
+.post(validator.signup,usercontroller.signup)
 .patch(auth.verifyUser,usercontroller.updateProfile)
 .delete(auth.verifyUser)
 
