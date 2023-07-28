@@ -12,8 +12,14 @@
 
 > users
 > 
-GET '/users/me' - Profile
-> 
-POST '/users' - CreateUser
+GET '/users/me' - getProfile
 >
-POST 'users?id' - UpdateUser
+POST '/users/login' - login
+>
+GET '/users/logout' - logout
+>
+POST '/users' - signup
+>
+PATCH '/users' - updateProfile
+>
+DELETE '/users' - withdrawUser
