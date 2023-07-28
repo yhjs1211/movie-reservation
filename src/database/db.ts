@@ -1,6 +1,8 @@
 import { Model, Sequelize } from "sequelize-typescript";
 import { config } from "../config";
 import User from "./model/user.model";
+import Show from "./model/show.model";
+import Reservation from "./model/reservation.model";
 import { Transaction } from "sequelize";
 
 class DBConnector{
@@ -10,7 +12,7 @@ class DBConnector{
         host : config.db.host,
         password : config.db.password,
         username : config.db.username,
-        models : [User],
+        models : [User, Show, Reservation],
         logging : false
     })
 
@@ -19,7 +21,6 @@ class DBConnector{
     }
 
     async initDB(){
-        
         await this.sq.sync().then(()=>{
             console.log('🌈 Database is connected 🌈');
         });
