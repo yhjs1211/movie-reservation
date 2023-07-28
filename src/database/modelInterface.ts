@@ -1,14 +1,14 @@
-import { Optional } from "sequelize";
+import { CharDataType, IntegerDataType, Optional, StringDataType, TextDataType } from "sequelize";
 
 // User
 export interface UserAttributes{
-    id : number;
+    id : IntegerDataType;
     isAdmin : boolean;
-    name : string;
-    nickname : string;
-    mobile : string;
-    point? : number;
-    password : string;
+    name : StringDataType;
+    nickname : StringDataType;
+    mobile : StringDataType;
+    point? : IntegerDataType;
+    password : StringDataType;
 };
 
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {};
@@ -22,22 +22,42 @@ export enum ShowCategory{
 }
 
 export interface ShowAttributes{
-    id : number;
-    name : string;
-    detail : string;
-    image? : string;
+    id : IntegerDataType;
+    name : StringDataType;
+    detail : TextDataType;
+    image? : StringDataType;
     category : ShowCategory;
-    location : string;
-    period : string;
+    location : StringDataType;
+    period : TextDataType;
 }
 
 export interface ShowCreationAttributes extends Optional<ShowAttributes, 'id'> {};
 
 // Reservation
-
 export interface ReservationAttributes{
-    id : number;
-    userId : number;
+    id : IntegerDataType;
+    userId : IntegerDataType;
 }
 
 export interface ReservationCreationAttributes extends Optional<ReservationAttributes,'id'>{};
+
+// Timetable
+export interface TimetableAttributes{
+    id : StringDataType;
+    date : StringDataType;
+    isFilled : boolean;
+    showId : number;
+}
+
+export interface TimetableCreationAttributes extends Optional<TimetableAttributes,'id'>{};
+
+// Seat
+export interface SeatAttributes{
+    id : IntegerDataType;
+    grade : CharDataType;
+    price : IntegerDataType;
+    isBooked : boolean;
+    timetableId : StringDataType;
+}
+
+export interface SeatCreationAttributes extends Optional<SeatAttributes,'id'>{};

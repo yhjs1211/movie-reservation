@@ -3,6 +3,8 @@ import { config } from "../config";
 import User from "./model/user.model";
 import Show from "./model/show.model";
 import Reservation from "./model/reservation.model";
+import Seat from "./model/seat.model";
+import Timetable from "./model/timetable.model";
 import { Transaction } from "sequelize";
 
 class DBConnector{
