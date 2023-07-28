@@ -12,7 +12,6 @@ POST '/shows' - createShow
 PATCH '/shows' - updateShow
 DELETE '/shows' - closeShow
 GET '/shows/:showId' - getShow
-POST '/shows/:showId' - 
 
  */
 
@@ -22,8 +21,7 @@ router.route('/')
 .patch()
 .delete()
 
-router.route('/:showId')
-.get()
-.post()
+router.get('/:showId');
+
 
 export default router;

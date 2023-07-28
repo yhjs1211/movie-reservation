@@ -1,6 +1,7 @@
 import userRouter from './user.routes';
 import showRouter from './show.routes';
 import reservationRouter from './reservation.routes';
+import timetableRouter from './timetable.routes';
 
 import { Router } from 'express';
 
@@ -18,7 +19,11 @@ const defaultRouter = [
     {
         path : '/reservations',
         router : reservationRouter
-    }
+    },
+    {
+        path : '/timetable',
+        router : timetableRouter
+    },
 ];
 
 defaultRouter.forEach(r=>{
