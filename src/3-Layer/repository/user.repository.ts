@@ -3,50 +3,64 @@ import dbConnector from "../../database/db";
 import User from "../../database/model/user.model";
 import { Op } from "sequelize";
 import {ResponseData} from "../../types/response"
+import { UpdateInfo } from "../../types/user";
 
 @singleton()
 export default class UserRepository{
     private userRepository = dbConnector.sq.getRepository(User);
     private transaction = dbConnector.getTransaction();
 
-    async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string, password : string) : Promise<ResponseData>{
-        let user = null;
-
+    async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string, password : string) : Promise<ResponseData<User>>{
         try {
             await this.userRepository.create({isAdmin, name, nickname, mobile, password});
-            user = await this.userRepository.findOne({
+
+            const user = await this.userRepository.findOne({
                 where:{
-                    [Op.and]:{ mobile, nickname }
+                    [Op.and] : { 
+                        mobile,
+                        nickname
+                    }
                 }
             });
-            return {isSuccessful : true, data:user};
+
+            return {isSuccessful : true, data : user};
         } catch (e) {
             console.error(e);
-            return {isSuccessful : false, data:user};
+            return {isSuccessful : false, data : null};
         }
     }
 
     async findById(userId : string) : Promise<ResponseData<User>>{
-        let user = null;
         try {
-            user = await this.userRepository.findByPk(userId);    
+            const user = await this.userRepository.findByPk(userId);    
             return {isSuccessful : true, data:user};
         } catch (e) {
             console.error(e);
-            return {isSuccessful : false, data:user};
+            return {isSuccessful : false, data:null};
         }
     }
 
     async findByNickname ( nickname : string ) : Promise<User | null>{
-        let user = null;
         try {
-            user = await this.userRepository.findOne({where:{nickname}});
+            const user = await this.userRepository.findOne({where:{nickname}});
             return user;
         } catch (e) {
             console.error(e);
-            return user;
+            return null;
         }
     }
 
-    async updateUser ( id : string, )
+    async updateUser ( user : User, data : UpdateInfo) : Promise<ResponseData<User>>{
+        try {
+            if(user){
+                await user.update(data);
+                return {isSuccessful : true, data : user};
+            }else{
+                return {isSuccessful : false, data : null};
+            }
+        } catch (e) {
+            console.error(e);
+            return {isSuccessful : false, data:null};
+        }
+    }
 }

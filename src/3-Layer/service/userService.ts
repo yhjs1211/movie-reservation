@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import { config } from "../../config";
 import auth from "../../middleware/auth";
 import {LoginInfo, UserInfo, UpdateInfo} from "../../types/user";
+import { ResponseData } from "../../types/response";
+import User from "../../database/model/user.model";
 
 const userRepository = container.resolve(UserRepository);
 
@@ -34,8 +36,22 @@ export default class UserService{
         return this.userRepository.createUser( isAdmin, name, nickname, mobile, password );
     }
 
-    public updateUser (userId : string, data : UpdateInfo){
-        const { mobile, nickname, password } = data;
+    public async updateUser (userId : string, data : UpdateInfo) : Promise<ResponseData<User> | undefined>{
+        Object.keys(data).forEach( key => {
+            if(data[key] === undefined) delete data[key]
+        });
+
+        if(Object.keys(data).length==0) return undefined; // 업데이트 정보가 하나도 없을시
+        
+        const user = await this.userRepository.findById(userId);
+
+        if(user.data){
+            const permit = bcrypt.compareSync(data.confirmPassword,user.data.password) // 업데이트 요청에 대한 비밀번호 확인
+            
+            if(permit){
+                return this.userRepository.updateUser( user.data , data );
+            }
+        }
     }
 
     public findById ( userId : string ){

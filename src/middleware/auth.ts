@@ -37,6 +37,13 @@ class Auth{
 
         const payload = this.decodeToken(token);
 
+        if(payload === null){
+            res.status(400).json({
+                message : "재 로그인 후 시도해주세요."
+            });
+            return;
+        }
+
         res.locals.userId = payload?.userId;
         res.locals.isAdmin = payload?.isAdmin;
         next();
