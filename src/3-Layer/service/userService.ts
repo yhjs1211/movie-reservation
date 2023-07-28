@@ -50,6 +50,22 @@ export default class UserService{
             
             if(permit){
                 return this.userRepository.updateUser( user.data , data );
+            }else{
+                return undefined;
+            }
+        }
+    }
+
+    public async deleteUser ( userId : string , data : { confirmPassword : string } ) {
+        const user = await this.userRepository.findById(userId);
+
+        if(user.data){
+            const permit = bcrypt.compareSync(data.confirmPassword,user.data.password) // 업데이트 요청에 대한 비밀번호 확인
+            
+            if(permit){
+                return this.userRepository.deleteUser(user.data);       
+            }else{
+                return undefined;
             }
         }
     }

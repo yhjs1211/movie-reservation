@@ -11,7 +11,7 @@ const router = Router();
     GET '/users/me' 개인정보 조회
     POST '/users' 회원가입
     PATCH '/users' 회원정보 수정
-    DELETE '/users?id' 회원탈퇴
+    DELETE '/users' 회원탈퇴
     POST '/users/login' 로그인
     GET '/users/logout' 로그아웃
 */
@@ -25,6 +25,6 @@ router.get('/logout',usercontroller.logout);
 router.route('/')
 .post(validator.signup,usercontroller.signup)
 .patch(validator.updateUser,auth.verifyUser,usercontroller.updateProfile)
-.delete(auth.verifyUser)
+.delete(auth.verifyUser,usercontroller.withdrawUser)
 
 export default router;

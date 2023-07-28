@@ -48,7 +48,7 @@ export default class UserRepository{
             console.error(e);
             return null;
         }
-    }
+    };
 
     async updateUser ( user : User, data : UpdateInfo) : Promise<ResponseData<User>>{
         try {
@@ -61,6 +61,15 @@ export default class UserRepository{
         } catch (e) {
             console.error(e);
             return {isSuccessful : false, data:null};
+        }
+    };
+
+    async deleteUser ( user : User ) : Promise<{isSuccessful : boolean, message : string} | null>{
+        if(user){
+            await user.destroy();
+            return { isSuccessful : true, message : "삭제되었습니다." };
+        }else{
+            return null;
         }
     }
 }
