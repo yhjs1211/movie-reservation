@@ -62,4 +62,11 @@ export default class UserController{
                 })
             });
     }
+
+    updateProfile = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+        const userId : string = res.locals.userId;
+
+        const result = await this.userService.updateUser(userId,req.body);
+        
+    }
 }

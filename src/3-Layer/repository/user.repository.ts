@@ -2,11 +2,7 @@ import { singleton } from "tsyringe";
 import dbConnector from "../../database/db";
 import User from "../../database/model/user.model";
 import { Op } from "sequelize";
-
-type ResponseData = {
-    isSuccessful : boolean,
-    data : User | null
-}
+import {ResponseData} from "../../types/response"
 
 @singleton()
 export default class UserRepository{
@@ -30,7 +26,7 @@ export default class UserRepository{
         }
     }
 
-    async findById(userId : string) : Promise<ResponseData>{
+    async findById(userId : string) : Promise<ResponseData<User>>{
         let user = null;
         try {
             user = await this.userRepository.findByPk(userId);    
@@ -51,4 +47,6 @@ export default class UserRepository{
             return user;
         }
     }
+
+    async updateUser ( id : string, )
 }

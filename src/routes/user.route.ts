@@ -2,6 +2,7 @@ import { Router } from "express";
 import UserController from "../3-Layer/controller/user.controller";
 import { container } from "tsyringe";
 import auth from "../middleware/auth";
+import validator from '../middleware/validate';
 
 /*
     GET '/users/me' 개인정보 조회
@@ -16,13 +17,13 @@ const router = Router();
 
 router.get('/me',auth.verifyUser,usercontroller.getProfile);
 
-router.post('/login',usercontroller.login);
+router.post('/login',validator.login,usercontroller.login);
 
 router.get('/logout',usercontroller.logout);
 
 router.route('/')
 .post(usercontroller.signup)
-.patch(auth.verifyUser)
+.patch(auth.verifyUser,usercontroller.updateProfile)
 .delete(auth.verifyUser)
 
 export default router;
