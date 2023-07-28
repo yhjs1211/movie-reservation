@@ -1,5 +1,6 @@
-import userRouter from './user.route';
-import showRouter from './show.route';
+import userRouter from './user.routes';
+import showRouter from './show.routes';
+import reservationRouter from './reservation.routes';
 
 import { Router } from 'express';
 
@@ -13,6 +14,10 @@ const defaultRouter = [
     {
         path : '/shows',
         router : showRouter
+    },
+    {
+        path : '/reservations',
+        router : reservationRouter
     }
 ];
 
