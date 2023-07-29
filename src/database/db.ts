@@ -2,7 +2,8 @@ import { Model, Sequelize } from "sequelize-typescript";
 import { config } from "../config";
 import User from "./model/user.model";
 import Show from "./model/show.model";
-import Reservation from "./model/reservation.model";
+import Book from "./model/book.model";
+import BookShow from "./model/book_show.model";
 import Seat from "./model/seat.model";
 import Timetable from "./model/timetable.model";
 import { Transaction } from "sequelize";
@@ -14,7 +15,7 @@ class DBConnector{
         host : config.db.host,
         password : config.db.password,
         username : config.db.username,
-        models : [User, Show, Reservation],
+        models : [User, Show, Book, BookShow, Timetable, Seat],
         logging : false
     })
 

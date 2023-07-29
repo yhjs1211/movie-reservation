@@ -33,13 +33,13 @@ export interface ShowAttributes{
 
 export interface ShowCreationAttributes extends Optional<ShowAttributes, 'id'> {};
 
-// Reservation
-export interface ReservationAttributes{
+// Book
+export interface BookAttributes{
     id : IntegerDataType;
     userId : IntegerDataType;
 }
 
-export interface ReservationCreationAttributes extends Optional<ReservationAttributes,'id'>{};
+export interface BookCreationAttributes extends Optional<BookAttributes,'id'>{};
 
 // Timetable
 export interface TimetableAttributes{
@@ -54,7 +54,7 @@ export interface TimetableCreationAttributes extends Optional<TimetableAttribute
 // Seat
 export interface SeatAttributes{
     id : IntegerDataType;
-    grade : CharDataType;
+    grade : StringDataType;
     price : IntegerDataType;
     isBooked : boolean;
     timetableId : StringDataType;

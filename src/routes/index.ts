@@ -1,6 +1,6 @@
 import userRouter from './user.routes';
 import showRouter from './show.routes';
-import reservationRouter from './reservation.routes';
+import bookRouter from './book.routes';
 import timetableRouter from './timetable.routes';
 
 import { Router } from 'express';
@@ -17,8 +17,8 @@ const defaultRouter = [
         router : showRouter
     },
     {
-        path : '/reservations',
-        router : reservationRouter
+        path : '/books',
+        router : bookRouter
     },
     {
         path : '/timetable',

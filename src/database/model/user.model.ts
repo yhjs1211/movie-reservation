@@ -1,7 +1,7 @@
-import { Optional } from "sequelize";
-import { AllowNull, AutoIncrement, Column, Default, HasMany, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { AllowNull, AutoIncrement, Column, Default, HasMany, HasOne, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 import {UserAttributes, UserCreationAttributes} from '../modelInterface';
-import Reservation from "./reservation.model";
+import Book from "./book.model";
+
 
 @Table
 export default class User extends Model<UserAttributes,UserCreationAttributes>{
@@ -39,6 +39,6 @@ export default class User extends Model<UserAttributes,UserCreationAttributes>{
     @Column
     point? : number;
 
-    @HasMany(() => Reservation,'userId')
-    reservations! : Reservation[];
+    @HasOne(() => Book)
+    book! : Book;
 }
