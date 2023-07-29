@@ -1,4 +1,4 @@
-import { CharDataType, IntegerDataType, Optional, StringDataType, TextDataType } from "sequelize";
+import { IntegerDataType, Optional, StringDataType, TextDataType } from "sequelize";
 
 // User
 export interface UserAttributes{

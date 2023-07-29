@@ -4,7 +4,8 @@ import Show from "./show.model";
 
 
 @Table({
-    timestamps:false
+    timestamps:false,
+    tableName:'Book_Show'
 })
 export default class BookShow extends Model{
     @ForeignKey(()=>Book)
