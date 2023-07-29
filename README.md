@@ -4,7 +4,8 @@
 
 # ERD
 
-<img width="1046" alt="image" src="https://github.com/yhjs1211/movie-reservation/assets/122883378/274d5dc8-c3d0-4187-8654-7ad1d7929bf9">
+![image](https://github.com/yhjs1211/movie-reservation/assets/122883378/308f5598-f309-4a0c-8b4d-3481a5d46a7f)
+
 
 
 ---
