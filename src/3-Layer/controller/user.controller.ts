@@ -52,8 +52,7 @@ export default class UserController{
         this.userService.findById(userId)
             .then(d=>{
                 res.status(200).json({
-                    isSuccessful : d.isSuccessful,
-                    User : d.data
+                    user:d
                 })
             })
             .catch(()=>{

@@ -45,11 +45,11 @@ export default class UserService{
         
         const user = await this.userRepository.findById(userId);
 
-        if(user.data){
-            const permit = bcrypt.compareSync(data.confirmPassword,user.data.password) // 업데이트 요청에 대한 비밀번호 확인
+        if(user){
+            const permit = bcrypt.compareSync(data.confirmPassword,user.password) // 업데이트 요청에 대한 비밀번호 확인
             
             if(permit){
-                return this.userRepository.updateUser( user.data , data );
+                return this.userRepository.updateUser( user , data );
             }else{
                 return undefined;
             }
@@ -59,11 +59,11 @@ export default class UserService{
     public async deleteUser ( userId : string , data : { confirmPassword : string } ) {
         const user = await this.userRepository.findById(userId);
 
-        if(user.data){
-            const permit = bcrypt.compareSync(data.confirmPassword,user.data.password) // 업데이트 요청에 대한 비밀번호 확인
+        if(user){
+            const permit = bcrypt.compareSync(data.confirmPassword,user.password) // 업데이트 요청에 대한 비밀번호 확인
             
             if(permit){
-                return this.userRepository.deleteUser(user.data);       
+                return this.userRepository.deleteUser(user);       
             }else{
                 return undefined;
             }

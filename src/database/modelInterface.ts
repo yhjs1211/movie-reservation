@@ -1,50 +1,51 @@
-import { IntegerDataType, Optional, StringDataType, TextDataType } from "sequelize";
+import { Optional } from "sequelize";
 
 // User
 export interface UserAttributes{
-    id : IntegerDataType;
+    id : number;
     isAdmin : boolean;
-    name : StringDataType;
-    nickname : StringDataType;
-    mobile : StringDataType;
-    point? : IntegerDataType;
-    password : StringDataType;
+    name : string;
+    nickname : string;
+    mobile : string;
+    point? : number;
+    password : string;
 };
 
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {};
 
 // Show
 export enum ShowCategory{
-    Movie,
-    Festival,
-    Musical,
-    Concert
+    NoCategory = "None",
+    Movie = "Movie",
+    Festival = "Festival",
+    Musical = "Musical",
+    Concert = "Concert",
 }
 
 export interface ShowAttributes{
-    id : IntegerDataType;
-    name : StringDataType;
-    detail : TextDataType;
-    image? : StringDataType;
+    id : number;
+    name : string;
+    detail : string;
+    image? : string;
     category : ShowCategory;
-    location : StringDataType;
-    period : TextDataType;
+    location : string;
+    period : string;
 }
 
 export interface ShowCreationAttributes extends Optional<ShowAttributes, 'id'> {};
 
 // Book
 export interface BookAttributes{
-    id : IntegerDataType;
-    userId : IntegerDataType;
+    id : number;
+    userId : number;
 }
 
 export interface BookCreationAttributes extends Optional<BookAttributes,'id'>{};
 
 // Timetable
 export interface TimetableAttributes{
-    id : StringDataType;
-    date : StringDataType;
+    id : string;
+    date : string;
     isFilled : boolean;
     showId : number;
 }
@@ -53,11 +54,11 @@ export interface TimetableCreationAttributes extends Optional<TimetableAttribute
 
 // Seat
 export interface SeatAttributes{
-    id : IntegerDataType;
-    grade : StringDataType;
-    price : IntegerDataType;
+    id : number;
+    grade : string;
+    price : number;
     isBooked : boolean;
-    timetableId : StringDataType;
+    timetableId : string;
 }
 
 export interface SeatCreationAttributes extends Optional<SeatAttributes,'id'>{};

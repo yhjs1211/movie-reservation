@@ -29,15 +29,17 @@ DELETE '/users' - withdrawUser
 >
 > Shows
 >
+GET '/shows/:showId' - getShow
+>
 GET '/shows' - getShows
+>
+GET '/shows?category=:category' - getShowsByCategory
+>
+GET '/shows?name=:name' - getShowsByName
 >
 POST '/shows' - createShow
 >
-PATCH '/shows' - updateShow
->
 DELETE '/shows' - closeShow
->
-GET '/shows/:showId' - getShow
 >
 > Timetables
 >

@@ -5,6 +5,8 @@ import { Op } from "sequelize";
 import {ResponseData} from "../../types/response"
 import { UpdateInfo } from "../../types/user";
 
+
+
 @singleton()
 export default class UserRepository{
     private userRepository = dbConnector.sq.getRepository(User);
@@ -30,13 +32,13 @@ export default class UserRepository{
         }
     }
 
-    async findById(userId : string) : Promise<ResponseData<User>>{
+    async findById(userId : string) : Promise<User | null>{
         try {
             const user = await this.userRepository.findByPk(userId);    
-            return {isSuccessful : true, data:user};
+            return user;
         } catch (e) {
             console.error(e);
-            return {isSuccessful : false, data:null};
+            return null;
         }
     }
 
