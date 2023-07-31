@@ -43,4 +43,13 @@ DELETE '/shows' - closeShow
 >
 > Timetables
 >
-GET '/timetable?id=:showId&date=:date' - getTimetables
+GET '/timetable?id=:showId&date=:date' - getTimetableOnDate
+>
+POST '/timetable?id=:showId&date=:date' - createTimetable
+>
+PATCH '/timetable?id=:showId&date=:date' - updateTimetable
+>
+DELETE '/timetable?id=:showId&date=:date' - deleteTimetable
+>
+> Seats
+>

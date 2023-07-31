@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { container, singleton } from "tsyringe";
 import UserService from "../service/userService";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
 const userService = container.resolve(UserService);
 
@@ -9,7 +9,7 @@ const userService = container.resolve(UserService);
 export default class UserController{
     private userService = userService;
 
-    signup = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    signup = async (req :Request, res : Response) : Promise<void> => {
         const result = await this.userService.createUser(req.body);
 
         if(result.isSuccessful){
@@ -25,7 +25,7 @@ export default class UserController{
         }
     };
 
-    login = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    login = async (req :Request, res : Response) : Promise<void> => {
         const result = await this.userService.login(req.body);
         if(result){
             res.cookie('Authorization',result,{path:'/',httpOnly:true});
@@ -40,14 +40,14 @@ export default class UserController{
         }
     };
 
-    logout = (req :Request, res : Response, next : NextFunction) : void => {
+    logout = (req :Request, res : Response) : void => {
         res.clearCookie('Authorization');
         res.status(200).json({
             message : "로그아웃 되었습니다."
         });
     }
 
-    getProfile = (req :Request, res : Response, next : NextFunction) : void => {
+    getProfile = (req :Request, res : Response) : void => {
         const userId : string = res.locals.userId;
         this.userService.findById(userId)
             .then(d=>{
@@ -62,7 +62,7 @@ export default class UserController{
             });
     };
 
-    updateProfile = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    updateProfile = async (req :Request, res : Response) : Promise<void> => {
         const userId : string = res.locals.userId;
 
         const result = await this.userService.updateUser(userId,req.body);
@@ -85,7 +85,7 @@ export default class UserController{
         }
     };
 
-    withdrawUser = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    withdrawUser = async (req :Request, res : Response) : Promise<void> => {
         const userId : string = res.locals.userId;
 
         const result = await this.userService.deleteUser(userId, req.body);

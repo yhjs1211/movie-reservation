@@ -44,8 +44,9 @@ export interface BookCreationAttributes extends Optional<BookAttributes,'id'>{};
 
 // Timetable
 export interface TimetableAttributes{
-    id : string;
+    id : number;
     date : string;
+    time : string;
     isFilled : boolean;
     showId : number;
 }
@@ -58,7 +59,7 @@ export interface SeatAttributes{
     grade : string;
     price : number;
     isBooked : boolean;
-    timetableId : string;
+    timetableId : number;
 }
 
 export interface SeatCreationAttributes extends Optional<SeatAttributes,'id'>{};

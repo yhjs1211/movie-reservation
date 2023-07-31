@@ -1,8 +1,7 @@
 import "reflect-metadata";
 import { container, singleton } from "tsyringe";
 import ShowService from "../service/showService";
-import { Request, Response, NextFunction } from "express";
-import Show from "../../database/model/show.model";
+import { Request, Response } from "express";
 
 const showService = container.resolve(ShowService);
 
@@ -10,7 +9,7 @@ const showService = container.resolve(ShowService);
 export default class ShowController{
     private showService = showService;
 
-    getShows = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    getShows = async (req :Request, res : Response) : Promise<void> => {
         let result;
         const category = req.query.category as string;
         const name = req.query.name as string;
@@ -32,7 +31,7 @@ export default class ShowController{
         }
     };
 
-    getShowByShowId = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    getShowByShowId = async (req :Request, res : Response) : Promise<void> => {
         const id = req.params.showId;
         
         const result = await this.showService.getShowByShowId(id);
@@ -50,7 +49,7 @@ export default class ShowController{
         }
     };
 
-    createShow = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    createShow = async (req :Request, res : Response) : Promise<void> => {
         const isAdmin= res.locals.isAdmin;
         
         if(isAdmin){
@@ -72,7 +71,7 @@ export default class ShowController{
         }
     };
 
-    deleteShow = async (req :Request, res : Response, next : NextFunction) : Promise<void> => {
+    deleteShow = async (req :Request, res : Response) : Promise<void> => {
         const isAdmin= res.locals.isAdmin;
         const showId = req.query.id as string;
         

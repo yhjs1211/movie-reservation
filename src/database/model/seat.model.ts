@@ -23,8 +23,8 @@ export default class Seat extends Model<SeatAttributes,SeatCreationAttributes>{
     isBooked! : boolean;
 
     @ForeignKey(()=>Timetable)
-    @Column(DataType.STRING)
-    timetableId! : string;
+    @Column(DataType.INTEGER)
+    timetableId! : number;
 
     @BelongsTo(()=>Timetable)
     timetable! : Timetable;

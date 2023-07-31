@@ -10,7 +10,6 @@ import { UpdateInfo } from "../../types/user";
 @singleton()
 export default class UserRepository{
     private userRepository = dbConnector.sq.getRepository(User);
-    private transaction = dbConnector.getTransaction();
 
     async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string, password : string) : Promise<ResponseData<User>>{
         try {
