@@ -4,29 +4,33 @@ import User from "../../database/model/user.model";
 import { Op } from "sequelize";
 import {ResponseData} from "../../types/response"
 import { UpdateInfo } from "../../types/user";
+import Book from "../../database/model/book.model";
 
 
 
 @singleton()
 export default class UserRepository{
+    private sq = dbConnector.sq;
     private userRepository = dbConnector.sq.getRepository(User);
 
     async createUser(isAdmin : boolean, name : string, nickname : string, mobile : string, password : string) : Promise<ResponseData<User>>{
+        const transaction = await this.sq.transaction();
         try {
-            await this.userRepository.create({isAdmin, name, nickname, mobile, password});
+            const user = await User.create({
+                isAdmin,
+                name,
+                nickname,
+                mobile,
+                password
+            },{transaction}); 
 
-            const user = await this.userRepository.findOne({
-                where:{
-                    [Op.and] : { 
-                        mobile,
-                        nickname
-                    }
-                }
-            });
+            await Book.create({userId:user.id},{transaction});
 
+            await transaction.commit();
             return {isSuccessful : true, data : user};
         } catch (e) {
             console.error(e);
+            await transaction.rollback();
             return {isSuccessful : false, data : null};
         }
     }

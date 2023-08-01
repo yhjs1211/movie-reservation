@@ -1,18 +1,18 @@
 import { Column, ForeignKey, Model, Table } from "sequelize-typescript";
 import Book from "./book.model";
-import Show from "./show.model";
+import Seat from "./seat.model";
 
 
 @Table({
     timestamps:false,
-    tableName:'Book_Show'
+    tableName:'Book_Seat'
 })
-export default class BookShow extends Model{
+export default class BookSeat extends Model{
     @ForeignKey(()=>Book)
     @Column
     bookId! : number;
 
-    @ForeignKey(()=>Show)
+    @ForeignKey(()=>Seat)
     @Column
-    showId! : number;
+    seatId! : number;
 }

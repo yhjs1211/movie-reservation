@@ -13,7 +13,7 @@ export default class TimetableRepository {
 
     async findTimetableOnDate ( showId : string, date : string ) : Promise<ResponseData<Timetable>> {
         try {
-            const timetable = await Timetable.findAll({
+            const timetable = await Timetable.scope('seat').findAll({
                 where : {
                     [Op.and]:{
                         showId,

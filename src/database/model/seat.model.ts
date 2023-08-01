@@ -1,6 +1,8 @@
-import { AllowNull, AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AllowNull, AutoIncrement, BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { SeatAttributes, SeatCreationAttributes } from "../modelInterface";
 import Timetable from "./timetable.model";
+import Book from "./book.model";
+import BookSeat from "./book_seat.model";
 
 @Table
 export default class Seat extends Model<SeatAttributes,SeatCreationAttributes>{
@@ -32,4 +34,7 @@ export default class Seat extends Model<SeatAttributes,SeatCreationAttributes>{
 
     @BelongsTo(()=>Timetable)
     timetable! : Timetable;
+
+    @BelongsToMany(()=>Book, ()=>BookSeat)
+    books! : Book[];
 }

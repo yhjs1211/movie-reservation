@@ -4,19 +4,11 @@ import Show from "./show.model";
 import Seat from "./seat.model";
 
 @DefaultScope(()=>({
-    attributes: ['date','time'],
-    include : {
-        model : Seat,
-        as : 'seats',
-        attributes : ['seatNumber','grade','price'],
-        where:{
-            isBooked:false
-        }
-    }
+    attributes: ['time'],
 }))
 @Scopes(()=>({
     full : {
-        attributes: ['date','time'],
+        attributes: ['time'],
         include : [
             {
                 model : Show,
@@ -24,12 +16,23 @@ import Seat from "./seat.model";
             {
                 model : Seat,
                 as : 'seats',
-                attributes : ['seatNumber','grade','price'],
+                attributes : ['id','seatNumber','grade','price'],
                 where:{
                     isBooked:false
                 }
             }
         ]
+    },
+    seat : {
+        attributes: ['time'],
+        include : {
+            model : Seat,
+            as : 'seats',
+            attributes : ['id','seatNumber','grade','price'],
+            where:{
+                isBooked:false
+            }
+        }
     }
 }))
 @Table({timestamps:false})
