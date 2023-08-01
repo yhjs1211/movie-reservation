@@ -37,7 +37,7 @@ export default class User extends Model<UserAttributes,UserCreationAttributes>{
     @AllowNull(true)
     @Default(0)
     @Column
-    point? : number;
+    point! : number;
 
     @HasOne(() => Book)
     book! : Book;

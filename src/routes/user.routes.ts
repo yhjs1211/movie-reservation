@@ -14,6 +14,7 @@ const router = Router();
     DELETE '/users' 회원탈퇴
     POST '/users/login' 로그인
     GET '/users/logout' 로그아웃
+    PATCH '/users/point' 포인트 수정
 */
 
 router.get('/me',auth.verifyUser,usercontroller.getProfile);
@@ -21,6 +22,8 @@ router.get('/me',auth.verifyUser,usercontroller.getProfile);
 router.post('/login',validator.login,usercontroller.login);
 
 router.get('/logout',usercontroller.logout);
+
+router.patch('/point',auth.verifyUser,usercontroller.updatePoint);
 
 router.route('/')
 .post(validator.signup,usercontroller.signup)

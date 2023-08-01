@@ -4,25 +4,23 @@ import { ResponseData } from "../../types/response";
 import { Op, Transaction } from "sequelize";
 import dbConnector from "../../database/db";
 import Seat from "../../database/model/seat.model";
+import Show from "../../database/model/show.model";
 
 
 @singleton()
 export default class TimetableRepository {
     private sq = dbConnector.sq;
 
-    async findTimetableOnDate ( time : string, date : string ) : Promise<ResponseData<Timetable>> {
+    async findTimetableOnDate ( showId : string, date : string ) : Promise<ResponseData<Timetable>> {
         try {
             const timetable = await Timetable.findAll({
                 where : {
                     [Op.and]:{
-                        showId:time,
+                        showId,
                         date
-                    }
+                    },
+                    isFilled:false
                 },
-                include:{
-                    model:Seat,
-                    attributes:['id','grade','isBooked']
-                }
             });
             const result = {
                 isSuccessful : true,
@@ -39,6 +37,42 @@ export default class TimetableRepository {
             return result;
         }
     };
+
+    async findTimetableDetail( showId : string, date : string, time : string ) : Promise<ResponseData<Timetable>> {
+        try {
+            const timetable = await Timetable.scope('full').findOne({
+                where : {
+                    [Op.and]:{
+                        showId,
+                        date,
+                        time
+                    },
+                    isFilled:false
+                }
+            });
+            if(timetable){
+                const result = {
+                    isSuccessful : true,
+                    data : timetable
+                };
+                return result;
+            }else{
+                const result = {
+                    isSuccessful : true,
+                    data : timetable
+                };
+                return result;
+            }
+        } catch (e) {
+            console.error(e);
+            
+            const result = {
+                isSuccessful : false,
+                data : null
+            };
+            return result;
+        }
+    }
 
     async createTimetable ( showId : string, date : string, timetable : string ) : Promise<ResponseData<Timetable>> {
         try {
@@ -61,9 +95,10 @@ export default class TimetableRepository {
 
                     const arrayOfSeat = [];
 
-                    for(let i=0; i<10; i++){
+                    for(let i=1; i<3; i++){
                         const obj = {
                             grade : "R",
+                            seatNumber : i,
                             price : 50000,
                             isBooked : false,
                             timetableId : instance.id
@@ -71,9 +106,10 @@ export default class TimetableRepository {
                         arrayOfSeat.push(obj);
                     };
 
-                    for(let i=0; i<20; i++){
+                    for(let i=3; i<6; i++){
                         const obj = {
                             grade : "S",
+                            seatNumber : i,
                             price : 35000,
                             isBooked : false,
                             timetableId : instance.id
@@ -81,9 +117,10 @@ export default class TimetableRepository {
                         arrayOfSeat.push(obj);
                     };
 
-                    for(let i=0; i<30; i++){
+                    for(let i=6; i<11; i++){
                         const obj = {
                             grade : "A",
+                            seatNumber : i,
                             price : 20000,
                             isBooked : false,
                             timetableId : instance.id

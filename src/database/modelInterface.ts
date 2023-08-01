@@ -56,6 +56,7 @@ export interface TimetableCreationAttributes extends Optional<TimetableAttribute
 // Seat
 export interface SeatAttributes{
     id : number;
+    seatNumber : number;
     grade : string;
     price : number;
     isBooked : boolean;

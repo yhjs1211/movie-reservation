@@ -73,4 +73,14 @@ export default class UserRepository{
             return null;
         }
     }
+
+    async updatePoint ( id : string, point : number) : Promise<User | null> {
+        try {
+            const user = await User.findByPk(id);
+            await user?.update({point:user.point+point});    
+            return user;
+        } catch (e) {
+            return null;
+        }
+    }
 }

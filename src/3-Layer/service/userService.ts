@@ -73,4 +73,8 @@ export default class UserService{
     public findById ( userId : string ){
         return this.userRepository.findById(userId);
     }
+
+    updatePoint ( userId : string, point : number){
+        return this.userRepository.updatePoint(userId,point);
+    }
 }

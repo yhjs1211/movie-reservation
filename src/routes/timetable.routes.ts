@@ -7,14 +7,15 @@ const timetableController = container.resolve(TimetableController);
 const router = Router();
 
 /*
-    GET '/timetable?id=:showId&date=:date' - getTimetableOnDate
+    GET '/timetable?id=:showId&date=:date' - getTimetable
+    GET '/timetable?id=:showId&date=:date&time=:time' - getTimetable
     POST '/timetable?id=:showId&date=:date' - createTimetable
     PATCH '/timetable?id=:showId&date=:date' - updateTimetable
     DELETE '/timetable?id=:showId&date=:date' - deleteTimetable
 */
 
 router.route('')
-.get(timetableController.getTimetableOnDate)
+.get(timetableController.getTimetable)
 .post(auth.verifyUser,timetableController.createTimetable)
 .patch(auth.verifyUser,timetableController.updateTimetable)
 .delete(auth.verifyUser,timetableController.deleteTimetable)

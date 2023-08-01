@@ -92,13 +92,29 @@ export default class UserController{
 
         if(result){
             res.clearCookie('Authorization');
-            res.status(400).json({
+            res.status(200).json({
                 isSuccessful : result.isSuccessful,
                 message:result.message
             });
         }else{
             res.status(400).json({
                 message:"회원 삭제 실패"
+            });
+        }
+    };
+
+    updatePoint = async (req :Request, res : Response) : Promise<void> => {
+        const userId : string = res.locals.userId;
+        const point : number = Number(req.body.point);
+        const result = await this.userService.updatePoint(userId,point);
+        if(result){
+            res.status(200).json({
+                isSuccessful : true,
+                updatedUser : result
+            });
+        }else{
+            res.status(500).json({
+                message:"포인트 수정 실패"
             });
         }
     }

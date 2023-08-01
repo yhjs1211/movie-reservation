@@ -1,9 +1,38 @@
-import { AllowNull, AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AllowNull, AutoIncrement, BelongsTo, Column, DataType, DefaultScope, ForeignKey, HasMany, Model, PrimaryKey, Scopes, Table } from "sequelize-typescript";
 import { TimetableAttributes, TimetableCreationAttributes } from "../modelInterface";
 import Show from "./show.model";
 import Seat from "./seat.model";
 
-@Table
+@DefaultScope(()=>({
+    attributes: ['date','time'],
+    include : {
+        model : Seat,
+        as : 'seats',
+        attributes : ['seatNumber','grade','price'],
+        where:{
+            isBooked:false
+        }
+    }
+}))
+@Scopes(()=>({
+    full : {
+        attributes: ['date','time'],
+        include : [
+            {
+                model : Show,
+            },
+            {
+                model : Seat,
+                as : 'seats',
+                attributes : ['seatNumber','grade','price'],
+                where:{
+                    isBooked:false
+                }
+            }
+        ]
+    }
+}))
+@Table({timestamps:false})
 export default class Timetable extends Model<TimetableAttributes,TimetableCreationAttributes>{
     @PrimaryKey
     @AllowNull(false)

@@ -9,6 +9,10 @@ export default class TimetableService{
         return this.timetableRepository.findTimetableOnDate(id,date);
     };
 
+    findTimetableDetail( id : string, date : string, time : string){
+        return this.timetableRepository.findTimetableDetail( id, date, time);
+    }
+
     createTimetable( id : string, date : string, timetable : string ){
         return this.timetableRepository.createTimetable(id, date, timetable);
     }

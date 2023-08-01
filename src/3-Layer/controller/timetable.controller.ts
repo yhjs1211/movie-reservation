@@ -6,10 +6,17 @@ import { Request, Response } from "express";
 export default class TimetableController {
     private timetableService = new TimetableService();
 
-    getTimetableOnDate = async (req :Request, res : Response) : Promise<void> => {
+    getTimetable = async (req :Request, res : Response) : Promise<void> => {
         const id = req.query.id as string;
         const date = req.query.date as string;
-        const result = await this.timetableService.findTimetableOnDate( id, date );
+        const time = req.query.time as string;
+
+        let result;
+        if(time){
+            result = await this.timetableService.findTimetableDetail( id, date, time );
+        }else{
+            result = await this.timetableService.findTimetableOnDate( id, date );
+        }
         
         if(result.isSuccessful){
             res.status(200).json({

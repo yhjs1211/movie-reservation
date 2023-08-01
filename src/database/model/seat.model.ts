@@ -11,6 +11,10 @@ export default class Seat extends Model<SeatAttributes,SeatCreationAttributes>{
     id! : number;
 
     @AllowNull(false)
+    @Column(DataType.INTEGER)
+    seatNumber! : number;
+
+    @AllowNull(false)
     @Column(DataType.STRING(10))
     grade! : string;
 
